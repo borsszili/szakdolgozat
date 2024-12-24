@@ -1,8 +1,8 @@
 {
     "compilerOptions": {
         "paths": {
-            "@/*": ["resources/*"],
-            "@shadcn/*": ["resources/ts/shadcn/*"]
+            "@/*": ["./resources/*"],
+            "@shadcn/*": ["./resources/ts/shadcn/*"]
         },
         "target": "ESNext",
         "useDefineForClassFields": true,
