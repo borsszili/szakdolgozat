@@ -5,12 +5,19 @@ import {Input} from "@/src/components/ui/input";
 import {Button} from "@/src/components/ui/button";
 import {Link} from "react-router";
 import axios from "axios";
-import {useFetchSubmit} from "../Hooks/useFetch";
-import {updateProperty} from "../Helpers/useUpdateProperty";
+import {useFetchSubmit} from "@/ts/Hooks/useFetch";
+import {updateProperty} from "@/ts/Helpers/useUpdateProperty";
+import {AnimatePresence, motion} from "framer-motion";
 
 interface ForgotPasswordData {
     email: string,
 }
+
+const alertVariants = {
+    initial: { opacity: 0, y: -50 },
+    animate: { opacity: 1, y: 0 },
+    exit: { opacity: 0, y: -50 }
+};
 
 export const ForgotPasswordPage  = () => {
     const [passwordData, setPasswordData] = useState<ForgotPasswordData>({email: ""});
@@ -28,14 +35,15 @@ export const ForgotPasswordPage  = () => {
         setError(null)
 
         if (!passwordData.email) {
-            setError('Email is required')
-            return
+            setError('Email is required');
+            return;
         }
 
-        await execute();
-
-        if(!forgotPasswordError) {
-
+        try {
+            await execute();
+            setSuccess('Password reset instructions have been sent to your email.');
+        } catch (err) {
+            setError(forgotPasswordError ? String(forgotPasswordError) : 'An error occurred. Please try again.');
         }
     }
 
@@ -47,16 +55,39 @@ export const ForgotPasswordPage  = () => {
                 </CardHeader>
                 <CardContent>
                     <form onSubmit={handleSubmit}>
-                        {error && (
-                            <Alert variant="destructive" className="mb-4">
-                                <AlertDescription>{error}</AlertDescription>
-                            </Alert>
-                        )}
-                        {success && (
-                            <Alert variant="default" className="mb-4">
-                                <AlertDescription>{success}</AlertDescription>
-                            </Alert>
-                        )}
+                        <AnimatePresence mode="wait">
+                            {error && (
+                                <motion.div
+                                    key="error"
+                                    variants={alertVariants}
+                                    initial="initial"
+                                    animate="animate"
+                                    exit="exit"
+                                    transition={{ duration: 0.3 }}
+                                >
+                                    <Alert variant="destructive" className="mb-4">
+                                        <AlertDescription>{error}</AlertDescription>
+                                    </Alert>
+                                </motion.div>
+                            )}
+                            {success && (
+                                <motion.div
+                                    key="success"
+                                    variants={alertVariants}
+                                    initial="initial"
+                                    animate="animate"
+                                    exit="exit"
+                                    transition={{ duration: 0.3 }}
+                                >
+                                    <Alert
+                                        variant="default"
+                                        className="mb-4 bg-green-100 border-green-400 text-green-800"
+                                    >
+                                        <AlertDescription>{success}</AlertDescription>
+                                    </Alert>
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
                         <div className="space-y-4">
                             <div className="space-y-2">
                                 <label htmlFor="email" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
