@@ -3,7 +3,7 @@ import {JSX} from "react";
 import {RegisterPage} from "./Pages/registerPage";
 import {ForgotPasswordPage} from "./Pages/forgotPasswordPage";
 import {DashboardPage} from "./Pages/dashboardPage";
-
+import {BookingPage} from "./Pages/bookingPage";
 export const routes: ({ path: string; element: JSX.Element } | {
     path: string;
     index: boolean;
@@ -29,5 +29,9 @@ export const routes: ({ path: string; element: JSX.Element } | {
     {
         "path": "dashboard",
         "element": <DashboardPage/>,
-    }
+    },
+    {
+        "path": "book",
+        "element": <BookingPage/>
+    },
 ]
