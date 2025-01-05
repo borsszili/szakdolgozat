@@ -32,7 +32,6 @@ export const ServiceSelection = ({ onNext }: ServiceSelectionProps) => {
         onNext({ service, provider, quantity })
     }
 
-
     const gradientClasses = "bg-gradient-to-r from-orange-400 to-amber-500"
     const gradientHoverClasses = "hover:from-orange-500 hover:to-amber-600"
 
