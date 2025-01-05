@@ -66,7 +66,9 @@ final readonly class AuthController
      */
     public function logout(LogoutRequest $request): JsonResponse
     {
-        $request->user()->currentAccessToken()->delete();
+        //$request->user()->currentAccessToken()->delete();
+
+        session()->destroy();
 
         return response()->json();
     }

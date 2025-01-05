@@ -4,10 +4,10 @@ import {Alert, AlertDescription} from "@/src/components/ui/alert";
 import {Input} from "@/src/components/ui/input";
 import {Button} from "@/src/components/ui/button";
 import {Link} from "react-router";
-import axios from "axios";
 import {useFetchSubmit} from "@/ts/Hooks/useFetch";
 import {updateProperty} from "@/ts/Helpers/useUpdateProperty";
 import {AnimatePresence, motion} from "framer-motion";
+import api from "../Config/axios";
 
 interface ForgotPasswordData {
     email: string,
@@ -25,7 +25,7 @@ export const ForgotPasswordPage  = () => {
     const [success, setSuccess] = useState<string | null>(null);
 
     const postForgotPasswordDataFetch = async () => {
-        return await axios.post("/forgot-password", passwordData);
+        return await api.post("/forgot-password", passwordData);
     };
 
     const { data: postLoginData, loading, error: forgotPasswordError, execute } = useFetchSubmit(postForgotPasswordDataFetch);

@@ -4,9 +4,9 @@ import {Alert, AlertDescription} from "@/src/components/ui/alert";
 import {Input} from "@/src/components/ui/input";
 import { Button } from "@/src/components/ui/button";
 import {Link} from "react-router";
-import axios from "axios";
 import {useFetchSubmit} from "../Hooks/useFetch";
 import {updateProperty} from "../Helpers/useUpdateProperty";
+import api from "../Config/axios";
 
 interface RegisterData {
     name: string,
@@ -21,7 +21,7 @@ export const RegisterPage  = () => {
     const [success, setSuccess] = useState<string | null>(null)
 
     const postRegisterDataFetch = async () => {
-        return await axios.post("/register", registerData);
+        return await api.post("/register", registerData);
     };
 
     const { data: postRegisterData, loading, error: fetchError, execute } = useFetchSubmit(postRegisterDataFetch);

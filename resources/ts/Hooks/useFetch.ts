@@ -24,9 +24,18 @@ export const useFetchSubmit = (fetchFn) => {
         setError(null);
         try {
             const result = await fetchFn();
+
+            if(result.status !== 200) {
+                setError(result.data);
+                return Promise.reject(result.data);
+            }
+
             setData(result.data);
+
+            return result.data;
         } catch (err) {
             setError(err);
+            return Promise.reject(error);
         } finally {
             setLoading(false);
         }

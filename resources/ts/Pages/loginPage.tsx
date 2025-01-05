@@ -6,10 +6,12 @@ import { Alert, AlertDescription } from "@/src/components/ui/alert";
 import {Separator} from "@/src/components/ui/separator";
 import {useFetchSubmit} from "@/ts/Hooks/useFetch";
 import {updateProperty} from "@/ts/Helpers/useUpdateProperty";
-import axios from "axios";
 import {Link} from "react-router";
 import {Apple, Chrome} from "lucide-react";
 import {useNavigate} from "react-router";
+import api from "../Config/axios";
+import {setToken} from "../Stores/Reducers/AuthSlice";
+import {useDispatch} from "react-redux";
 
 interface LoginData {
     email: string,
@@ -17,32 +19,25 @@ interface LoginData {
 }
 
 export const LoginPage = () => {
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const [loginData, setLoginData] = useState<LoginData>({ email: "", password: "" });
-    const [error, setError] = useState<string | null>(null);
 
     const postLoginDataFetch = async () => {
-        return await axios.post("/login", loginData);
+        return await api.post("/login", loginData);
     };
 
-    const { data: postLoginData, loading, error: loginError, execute } = useFetchSubmit(postLoginDataFetch);
+    const {error: loginError, execute } = useFetchSubmit(postLoginDataFetch);
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        setError(null)
 
-        if (!loginData.email) {
-            setError('Email is required')
-            return
-        }
-
-        await execute();
-
-        if(loginError) {
-            setError(loginError.toString);
-        }
-
-        navigate('dashboard');
+        execute()
+            .then((data) => {
+                dispatch(setToken(data?.token));
+                navigate('/dashboard');
+            })
+            .catch(_ => {})
     }
 
     const handleGoogleLogin = () => {
@@ -61,9 +56,9 @@ export const LoginPage = () => {
                 </CardHeader>
                 <CardContent>
                     <form onSubmit={handleSubmit}>
-                        {error && (
+                        {loginError && (
                             <Alert variant="destructive" className="mb-4">
-                                <AlertDescription>{error}</AlertDescription>
+                                <AlertDescription>{loginError?.toString()}</AlertDescription>
                             </Alert>
                         )}
                         <div className="space-y-4">

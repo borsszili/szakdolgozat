@@ -15,7 +15,7 @@ use \Illuminate\Foundation\Application;
 
 final readonly class GoogleAuthController implements OAuthProviderControllerInterface
 {
-    private const SOCIALITE_DRIVER = 'google';
+    private const string SOCIALITE_DRIVER = 'google';
 
     public function __construct(
         private UserRepository $userRepository,
@@ -54,6 +54,11 @@ final readonly class GoogleAuthController implements OAuthProviderControllerInte
         }
 
         Auth::login($user);
+
+        $user?->createToken(
+            name: 'auth_token',
+            expiresAt: now()->addWeek()
+        )->plainTextToken;
 
         return redirect(
             to: config('app.url') . "/#dashboard"

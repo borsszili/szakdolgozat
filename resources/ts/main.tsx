@@ -5,7 +5,7 @@ import {HashRouter} from "react-router";
 import '@/css/app.css';
 import "@/ts/Config/axios.ts";
 import {Provider} from "react-redux";
-import {store} from "./Hooks/store";
+import {store} from "./Stores/store";
 
 const root = createRoot(
     document.getElementById('root') as HTMLElement

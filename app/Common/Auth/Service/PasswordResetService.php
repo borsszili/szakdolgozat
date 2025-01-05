@@ -15,7 +15,7 @@ final readonly class PasswordResetService
 {
     /**
      * @param PasswordResetEmailRequest $request
-     * @return true
+     * @return void
      * @throws PasswordResetLinkFailedToSendException
      */
     public function sendPasswordResetMail(PasswordResetEmailRequest $request): void

@@ -12,23 +12,39 @@ interface AppointmentCardProps {
     title: string
     date: Date
     instructor: string
-    location: string
+    employee_has_service: EmployeeHasService
 }
 
-export const AppointmentCard = ({id, title, date, start, end, duration, instructor, location, price, currency}: AppointmentCardProps) =>  {
-    useEffect(() => console.log(date));
+interface EmployeeHasService {
+    employee_id: number,
+    id: number,
+    service_id: number,
+    employee: Employee,
+    service: Service
+}
 
+interface Employee {
+
+}
+
+interface Service {
+
+}
+
+export const AppointmentCard = ({id, title, date, start, end, duration, employee_has_service, location, price, currency}: AppointmentCardProps) =>  {
     const handleCancel = (id: number) => {
 
     }
 
-    const isMobile = useAppSelector((state) => state.app.isMobile)
+    const isMobile = useAppSelector((state) => state.mobile.isMobile)
+    const startParsed = new Date(start);
 
     const AppointmentDetails = () => (
         <div className="space-y-2">
-            <p><strong>Date:</strong> {format(date, 'MMMM d, yyyy')}</p>
-            <p><strong>Time:</strong> {format(date, 'h:mm a')}</p>
-            <p><strong>Instructor:</strong> {instructor}</p>
+            {/*<p><strong>Date:</strong> {format(date, 'MMMM d, yyyy')}</p>
+                <p><strong>Time:</strong> {format(date, 'h:mm a')}</p>
+*/}
+            {/*<p><strong>Instructor:</strong> {instructor}</p>*/}
             <p><strong>Location:</strong> {location}</p>
             <Button
                 variant="destructive"
@@ -74,16 +90,17 @@ export const AppointmentCard = ({id, title, date, start, end, duration, instruct
     return (
         <Card className="flex items-stretch gap-4 p-4 w-full relative">
                 <div
-                    className="flex min-w-[80px] flex-col items-center justify-center rounded-lg bg-orange-400 p-2 text-white self-stretch">
-                    <span className="text-2xl font-bold">{format(date, 'd')}</span>
-                    <span className="text-sm">{format(date, 'EEEE')}</span>
-                    <span className="text-sm font-semibold">{format(date, 'MMMM')}</span>
+                    className="flex min-w-[80px] flex-col items-center justify-center rounded-lg bg-orange-400 p-2 text-white self-stretch"
+                >
+                    {/*<span className="text-2xl font-bold">{format(date, 'd')}</span>
+                        <span className="text-sm">{format(date, 'EEEE')}</span>
+            <span className="text-sm font-semibold">{format(date, 'MMMM')}</span>*/}
                 </div>
                 <div className="flex flex-col space-y-1 flex-grow">
                     <h3 className="font-semibold">{title}</h3>
-                    <p className="text-sm text-muted-foreground">{instructor}</p>
+                    {/*<p className="text-sm text-muted-foreground">{employee_has_service.employee.name}</p>*/}
                     <p className="text-sm">
-                        {format(start, 'HH:ii')} - {format(end, 'HH:ii')} {duration}
+                        {format(start, 'HH:ii')} - {format(end, 'HH:ii')} {/*duration*/}
                     </p>
                     <div className="flex items-center gap-2">
                         <span className="font-semibold">{currency}{price}</span>

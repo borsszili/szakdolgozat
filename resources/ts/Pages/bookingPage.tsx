@@ -1,12 +1,12 @@
 import {useState} from "react";
 import React from "react";
 import {AnimatePresence} from "framer-motion";
-import {StepIndicator} from "@/ts/Components/BookingPage/stepIndicator";
-import {ServiceSelection} from "../Components/BookingPage/steps/serviceSelection";
-import {DateSelection} from "../Components/BookingPage/steps/dateSelection";
+import {StepIndicator} from "@/ts/Components/Booking/stepIndicator";
+import {ServiceSelection} from "../Components/Booking/Steps/serviceSelection";
+import {DateSelection} from "../Components/Booking/Steps/dateSelection";
 import {Link} from "react-router";
-import {GuestDetails} from "../Components/BookingPage/steps/guestDetails";
-import {SummarySection} from "../Components/BookingPage/steps/summarySection";
+import {GuestDetails} from "../Components/Booking/Steps/guestDetails";
+import {SummarySection} from "../Components/Booking/Steps/summarySection";
 
 
 export const BookingPage = () => {

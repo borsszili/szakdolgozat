@@ -1,51 +1,13 @@
-import React, { useEffect } from "react";
+import React from "react";
 import {SiteHeader} from "@/ts/Components/siteHeader";
 import {Card, CardContent, CardHeader, CardTitle} from "@/src/components/ui/card";
 import {AppointmentCard} from "@/ts/Components/appointmentCard";
-import {useState} from "react";
 import {AnimatePresence, motion} from "framer-motion";
 import InfiniteScroll from "react-infinite-scroll-component";
+import {useAppointments} from "../Hooks/useAppointments";
+
 export const DashboardPage  = () => {
-    const [appointments, setAppointments] = useState([
-        {
-            id: 1,
-            title: 'Driving Lesson',
-            date: new Date(2024, 0, 15, 14, 0),
-            instructor: 'John Doe',
-            location: '123 Main St, Anytown, USA',
-            start: new Date(2024, 0, 15, 14, 0),
-            end: new Date(2024, 0, 15, 22, 0),
-            duration: 20,
-            price: 20,
-            currency: "$"
-        },
-        {
-            id: 2,
-            title: 'Theory Test Prep',
-            date: new Date(2024, 0, 18, 10, 0),
-            instructor: 'Jane Smith',
-            location: '456 Oak Rd, Somewhere, USA',
-            start: new Date(2024, 0, 18, 10, 0),
-            end: new Date(2024, 0, 18, 20, 0),
-            duration: 20,
-            price: 20,
-            currency: "$"
-        },
-    ])
-
-    const [hasMore, setHasMore] = useState(true);
-
-    const loadMoreAppointments = () => {
-        setTimeout(() => {
-            if (appointments.length >= 10) {
-                setHasMore(false);
-            } else {
-                setAppointments((current) => [...current])
-
-                console.log(appointments)
-            }
-        }, 500);
-    };
+    const {appointments, loadMoreAppointments, appointmentFetchLoading, appointmentFetchError, hasMore, loading} = useAppointments();
 
     return (
         <div className="min-h-screen flex flex-col bg-gray-100 dark:bg-gray-900">
@@ -60,7 +22,7 @@ export const DashboardPage  = () => {
                             dataLength={appointments.length}
                             next={loadMoreAppointments}
                             hasMore={hasMore}
-                            loader={<h4 className="text-center py-4">Loading...</h4>}
+                            loader={appointmentFetchLoading ? <h4 className="text-center py-4">Loading...</h4> : null}
                             scrollableTarget="scrollableDiv"
                         >
                                 <AnimatePresence>
