@@ -16,6 +16,7 @@ use App\Common\Auth\Service\LoginService;
 use App\Common\Auth\Service\PasswordResetService;
 use App\Common\Auth\Service\RegisterService;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Auth;
 use Throwable;
 
 final readonly class AuthController
@@ -68,7 +69,7 @@ final readonly class AuthController
     {
         //$request->user()->currentAccessToken()->delete();
 
-        session()->destroy();
+        Auth::logout();
 
         return response()->json();
     }

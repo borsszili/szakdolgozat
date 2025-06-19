@@ -56,38 +56,40 @@ export const SiteHeader  = () => {
                             </Button>
                         </SheetTrigger>
 
-                        { user?.isAdmin &&
                             <SheetContent side="left" className="pr-0">
                                 <nav className="flex flex-col space-y-4">
                                     <Link to="/book">Book an appointment</Link>
                                     <Link to="/profile">Profile</Link>
-                                    <Collapsible
-                                        open={isSettingsOpen}
-                                        onOpenChange={setIsSettingsOpen}
-                                        className="w-full"
-                                    >
-                                        <CollapsibleTrigger asChild>
-                                            <button className="flex w-2/5 items-center justify-between text-sm">
-                                                <span className="text-link">Settings</span>
-                                                <ChevronDown
-                                                    className={`h-4 w-4 transition-transform duration-200 ${
-                                                        isSettingsOpen ? "rotate-180" : ""
-                                                    }`}
-                                                />
-                                            </button>
-                                        </CollapsibleTrigger>
-                                        <CollapsibleContent className="space-y-2">
-                                            <Link to="/settings/services">
-                                                <div className="pl-4 pt-2">Services</div>
-                                            </Link>
-                                            <Link to="/settings/employees">
-                                                <div className="pl-4 pt-2">Employees</div>
-                                            </Link>
-                                        </CollapsibleContent>
-                                    </Collapsible>
+
+                                    { user?.isAdmin &&
+                                        <Collapsible
+                                            open={isSettingsOpen}
+                                            onOpenChange={setIsSettingsOpen}
+                                            className="w-full"
+                                        >
+                                            <CollapsibleTrigger asChild>
+                                                <button className="flex w-2/5 items-center justify-between text-sm">
+                                                    <span className="text-link">Settings</span>
+                                                    <ChevronDown
+                                                        className={`h-4 w-4 transition-transform duration-200 ${
+                                                            isSettingsOpen ? "rotate-180" : ""
+                                                        }`}
+                                                    />
+                                                </button>
+                                            </CollapsibleTrigger>
+
+                                            <CollapsibleContent className="space-y-2">
+                                                <Link to="/settings/services">
+                                                    <div className="pl-4 pt-2">Services</div>
+                                                </Link>
+                                                <Link to="/settings/employees">
+                                                    <div className="pl-4 pt-2">Employees</div>
+                                                </Link>
+                                            </CollapsibleContent>
+                                        </Collapsible>
+                                    }
                                 </nav>
                             </SheetContent>
-                        }
                     </Sheet>
                     {/* -------- MOBILE MENU -------- */}
 
@@ -128,7 +130,6 @@ export const SiteHeader  = () => {
                                         )}
                                     </Link>
                                 ))}
-                                {user?.isAdmin &&
                                     <NavigationMenu>
                                         <NavigationMenuList>
                                             <NavigationMenuItem>
@@ -188,7 +189,7 @@ export const SiteHeader  = () => {
                                             </NavigationMenuItem>
                                         </NavigationMenuList>
                                     </NavigationMenu>
-                                }
+
                             </div>
                         </nav>
                     </div>

@@ -6,7 +6,7 @@
 
         <!-- Scripts -->
         @viteReactRefresh
-        @vite(['resources/ts/main.tsx','resources/css/app.css'])
+        @vite(['resources/ts/Common/main.tsx','resources/css/app.css'])
     </head>
     <body>
         <div id="root"></div>
